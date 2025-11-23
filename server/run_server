@@ -324,30 +324,11 @@ class NetworkfsRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(response_body)
 
-        
-
-    # def do_POST(self):
-    #     # Log the details of the incoming POST request
-    #     print(f"--- Incoming POST Request ---")
-    #     content_length = int(self.headers['Content-Length']) # Get the size of data
-    #     post_data = self.rfile.read(content_length) # Read the data
-    #     print(f"Path: {self.path}")
-    #     print(f"Headers:\n{self.headers}")
-    #     print(f"Body: {post_data.decode('utf-8')}")
-
-    #     # Send an HTTP 200 OK response
-    #     self.send_response(200)
-    #     self.send_header("Content-type", "text/plain")
-    #     self.end_headers()
-        
-    #     response_message = "POST request received successfully.\n"
-    #     self.wfile.write(response_message.encode("utf-8"))
-
 def run_server(port):
     server_address = ('127.0.0.1', port)
     
     with socketserver.TCPServer(server_address, NetworkfsRequestHandler) as httpd:
-        print(f"Serving HTTP on {server_address[0]} port {port}...")
+        print(f"Networkfs server listening on {server_address[0]} port {port}...")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
@@ -363,5 +344,5 @@ if __name__ == "__main__":
             print(f"Error: Invalid port number '{sys.argv[1]}'. Must be an integer.")
             sys.exit(1)
     else:
-        print(f"Usage: python3 {sys.argv[0]} <port_number>")
+        print(f"Usage: {sys.argv[0]} <port_number>")
         sys.exit(1)
